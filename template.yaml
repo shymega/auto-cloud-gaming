@@ -1,0 +1,31 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Cloud gaming
+
+Globals:
+  Function:
+    Timeout: 60
+
+Resources:
+  CloudGamingTelegramBotFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      PackageType: Image
+      Architectures:
+        - x86_64
+      Events:
+        TelegramEvent:
+          Type: Api 
+          Properties:
+            Path: /telegram
+            Method: post
+        VMEvent:
+          Type: Api
+          Properties:
+            Path: /vm
+            Method: post
+
+    Metadata:
+      Dockerfile: Dockerfile
+      DockerContext: cloud_gaming_telegram_bot_lambda
+      DockerTag: python3.8-v1
