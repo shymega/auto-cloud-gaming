@@ -1,18 +1,22 @@
-import json
-from time import sleep
 from utils.telegram import Telegram
+import json
 
 
-def lambda_handler(evt, ctx):
+def telegram_handler(evt: dict):
     t = Telegram()
-    req = json.loads(evt["body"])
-    msg = evt["message"]
-    chat_id = msg["chat"]["id"]
+    body = json.loads(evt["body"])
 
-    if "from" in msg:
-        if msg["text"] == "/start":
+    t.handle_update(body)
 
 
-
+def lambda_handler(evt: dict, _ctx: dict) -> dict:
+    if "message" in evt["body"]:
+        # This is a call from Telegram
+        telegram_handler(evt)
+    elif "state" in evt["body"]["payload"]:
+        # This is a call from the Azure VM, but this isn't coded yet! TODO.
+        pass
+    else:
+        pass
 
     return {"statusCode": 200}
