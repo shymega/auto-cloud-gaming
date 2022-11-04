@@ -40,7 +40,6 @@ class Telegram:
             chat_id: str = cb["from"]["id"]
             # cb_response: str = cb["data"].split(":")
             self.send_message(chat_id, "Processing your callback..")
-            print(cb)
 
     def __method_url(self, method: str) -> str:
         return self.API_URL_TEMPLATE.format(token=self.TELEGRAM_TOKEN, method=method)
