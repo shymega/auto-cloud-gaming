@@ -21,7 +21,7 @@ class Telegram:
             self.__handle_callback(update_json["callback_query"])
 
     def __handle_message(self, message: dict) -> None:
-        if message["chat"]["username"] != "shymega":
+        if message["chat"]["id"] != self.LAMBDA_CONF.get_telegram_owner_id():
             return
 
         if "from" in message:

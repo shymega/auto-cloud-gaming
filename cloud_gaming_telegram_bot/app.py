@@ -1,5 +1,5 @@
-from utils.telegram import Telegram
 import json
+from utils.telegram import Telegram
 
 
 def telegram_handler(evt: dict):
@@ -10,12 +10,12 @@ def telegram_handler(evt: dict):
 
 
 def lambda_handler(evt: dict, _ctx: dict) -> dict:
-    if "message" in evt["body"]:
+    if "message" in json.loads(evt["body"]):
         # This is a call from Telegram
         telegram_handler(evt)
-    elif "state" in evt["body"]["payload"]:
+    elif "state" in json.loads(evt["body"])["payload"]:
         # This is a call from the Azure VM, but this isn't coded yet! TODO.
-        pass
+        return {"statusCode": 400}
     else:
         pass
 

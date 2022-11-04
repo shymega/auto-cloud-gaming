@@ -1,0 +1,34 @@
+service: cloud-gaming-telegram-bot
+
+frameworkVersion: '2 || 3'
+
+provider:
+  name: aws
+  runtime: provided
+  region: eu-west-2
+  timeout: 30
+  ecr:
+    images:
+      cloudgaming:
+        path: ./cloud_gaming_telegram_bot
+  lambdaHashingVersion: 20201221
+
+functions:
+  cloudgaming:
+    image:
+      name: cloudgaming
+    description: Cloud Gaming Telegram Bot
+    events:
+      - http:
+          path: /telegram
+          method: POST
+          cors: true
+      - http:
+          path: /vm
+          method: POST
+          cors: true
+    environment:
+      LAMBDA_FUNC_TELGRAM_TOKEN: ${env:LAMBDA_FUNC_TELGRAM_TOKEN}
+      LAMBDA_FUNC_AWS_ACCESS_KEY_ID: ${env:LAMBDA_FUNC_AZURE_COMPUTE_TOKEN}
+      LAMBDA_FUNC_AWS_SECRET_ACCESS_KEY: ${env:LAMBDA_FUNC_AWS_SECRET_ACCESS_KEY}
+      LAMBDA_FUNC_TELEGRAM_OWNER_ID: ${env:LAMBDA_FUNC_TELEGRAM_OWNER_ID}
