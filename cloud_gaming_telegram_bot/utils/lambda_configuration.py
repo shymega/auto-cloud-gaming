@@ -39,9 +39,9 @@ class LambdaConfiguration:
         return response_dict
 
     @staticmethod
-    def get_telegram_owner_id() -> Optional[str]:
+    def get_telegram_owner_id() -> Optional[int]:
         try:
-            return getenv("LAMBDA_FUNC_TELEGRAM_OWNER_ID")
+            return int(getenv("LAMBDA_FUNC_TELEGRAM_OWNER_ID"))
         except KeyError:
             # Return None, as we can't get the env var
             return None
