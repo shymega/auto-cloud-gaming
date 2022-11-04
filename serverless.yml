@@ -11,7 +11,6 @@ provider:
     images:
       cloudgaming:
         path: ./cloud_gaming_telegram_bot
-  lambdaHashingVersion: 20201221
 
 functions:
   cloudgaming:
@@ -28,7 +27,7 @@ functions:
           method: POST
           cors: true
     environment:
-      LAMBDA_FUNC_TELGRAM_TOKEN: ${env:LAMBDA_FUNC_TELGRAM_TOKEN}
+      LAMBDA_FUNC_TELEGRAM_TOKEN: ${env:LAMBDA_FUNC_TELEGRAM_TOKEN}
       LAMBDA_FUNC_AWS_ACCESS_KEY_ID: ${env:LAMBDA_FUNC_AWS_ACCESS_KEY_ID}
       LAMBDA_FUNC_AWS_SECRET_ACCESS_KEY: ${env:LAMBDA_FUNC_AWS_SECRET_ACCESS_KEY}
       LAMBDA_FUNC_TELEGRAM_OWNER_ID: ${env:LAMBDA_FUNC_TELEGRAM_OWNER_ID}
