@@ -1,5 +1,6 @@
 import json
-from utils.telegram import Telegram
+
+from cloud_gaming_telegram_bot.modules.telegram import Telegram
 
 
 def telegram_handler(evt: dict) -> dict:

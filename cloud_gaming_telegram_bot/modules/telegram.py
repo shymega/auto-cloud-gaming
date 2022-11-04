@@ -1,8 +1,11 @@
+import logging
 from json import dumps
-from urllib3 import PoolManager
-from certifi import where as cert_where
 from time import sleep
-from utils.lambda_configuration import LambdaConfiguration
+
+from certifi import where as cert_where
+from urllib3 import PoolManager
+
+from ..utils.lambda_configuration import LambdaConfiguration
 
 
 class Telegram:
@@ -10,6 +13,7 @@ class Telegram:
     HTTP_CLIENT: PoolManager = PoolManager(ca_certs=cert_where())
     API_URL_TEMPLATE: str = "https://api.telegram.org/bot{token}/{method}"
     LAMBDA_CONF: LambdaConfiguration = LambdaConfiguration()
+    LOG: logging.Logger = logging.getLogger("telegram")
 
     def __init__(self):
         self.TELEGRAM_TOKEN = self.LAMBDA_CONF.get_telegram_token()
