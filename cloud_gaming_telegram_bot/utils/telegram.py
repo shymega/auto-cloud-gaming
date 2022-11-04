@@ -6,13 +6,13 @@ from utils.lambda_configuration import LambdaConfiguration
 
 
 class Telegram:
-    TOKEN: str = ""
+    TELEGRAM_TOKEN: str = ""
     HTTP_CLIENT: PoolManager = PoolManager(ca_certs=cert_where())
     API_URL_TEMPLATE: str = "https://api.telegram.org/bot{token}/{method}"
     LAMBDA_CONF: LambdaConfiguration = LambdaConfiguration()
 
     def __init__(self):
-        self.TOKEN = self.LAMBDA_CONF.get_telegram_token()
+        self.TELEGRAM_TOKEN = self.LAMBDA_CONF.get_telegram_token()
 
     def handle_update(self, update_json: dict) -> None:
         if "message" in update_json:
@@ -43,11 +43,11 @@ class Telegram:
             print(cb)
 
     def __method_url(self, method: str) -> str:
-        return self.API_URL_TEMPLATE.format(token=self.TOKEN, method=method)
+        return self.API_URL_TEMPLATE.format(token=self.TELEGRAM_TOKEN, method=method)
 
-    def __send_payload(self, url: str, d: dict) -> None:
+    def __send_payload(self, url: str, body: dict) -> None:
         self.HTTP_CLIENT.request(
-            "POST", url, body=dumps(d), headers={"Content-Type": "application/json"}
+            "POST", url, body=dumps(body), headers={"Content-Type": "application/json"}
         )
 
     def send_typing(self, chat_id: str) -> None:
